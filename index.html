@@ -175,6 +175,13 @@
   .board figure { margin: 0; display: grid; gap: 4px; }
   .board img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; }
   .board figcaption { font-family: var(--mono); font-size: 10px; color: var(--milk-dim); }
+  /* плеер демо-ролика: вертикальный, как рилс, звук по нажатию */
+  .player { position: relative; flex: 1 1 0; min-height: 0; display: flex; justify-content: center; }
+  .player video { height: 100%; max-height: 100%; aspect-ratio: 9 / 16; max-width: 100%; border-radius: 16px; object-fit: cover; background: #000; box-shadow: 0 0 0 3px var(--milk); }
+  .player button { all: unset; cursor: pointer; position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); padding: 7px 14px; border-radius: 999px;
+    background: rgba(15, 64, 43, 0.82); color: var(--milk); font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; white-space: nowrap; }
+  .player button:focus-visible { outline: 2px solid var(--pf-ball); }
+  body.wide .vis .player { flex: none; height: min(560px, 66vh); }
   .soon { border-radius: 14px; padding: 12px 14px; background: rgba(0, 0, 0, 0.2); font-size: 13.5px; color: var(--milk-dim); }
 
   .end h1 { font-size: 44px; }
@@ -356,15 +363,14 @@
 
     <!-- 10 · демо -->
     <section class="slide" data-i="9">
-      <div class="eyebrow">Пример ролика · 15 секунд</div>
-      <h2>«Куда пойти в Праге в среду, если ты <em>свой</em>»</h2>
-      <div class="board">
-        <figure><img src="img/rally.jpg" alt=""><figcaption>0–2 с · хук</figcaption></figure>
-        <figure><img src="img/friends.jpg" alt=""><figcaption>2–10 с · в бит</figcaption></figure>
-        <figure><img src="img/evening.jpg" alt=""><figcaption>10–13 с · слоу-мо</figcaption></figure>
-        <figure><img src="img/collab.jpg" alt=""><figcaption>13–15 с · «приходи»</figcaption></figure>
+      <div class="eyebrow">Демо-ролик · 15 секунд</div>
+      <h2>«Середа в <em>Padel Family</em>»</h2>
+      <div class="player ui">
+        <video id="demo" src="video/demo.mp4" poster="video/demo_poster.jpg" muted loop playsinline preload="metadata"></video>
+        <button id="snd" aria-label="Включить звук">🔇 нажмите для звука</button>
       </div>
-      <div class="soon push">Демо собираем из открытых источников, чтобы показать подход. На вашем аккаунте сделаем то же на ваших кадрах.</div>
+      <p class="sub">Хук в первые две секунды, склейки в бит, слоу-мо и путь на первую игру в конце.</p>
+      <div class="soon push">Демо собрано из открытых источников, чтобы показать подход. На вашем аккаунте сделаем то же на ваших кадрах.</div>
     </section>
 
     <!-- 11 · финал -->
@@ -397,8 +403,15 @@
     slides.forEach((s, k) => s.classList.toggle("on", k === cur));
     [...bars.children].forEach((b, k) => b.classList.toggle("done", k <= cur));
     count.textContent = (cur + 1) + " / " + N;
+    if (typeof syncDemo === "function") syncDemo();
     if (cur === 1) { const m = document.getElementById("m1"); m.classList.remove("go"); requestAnimationFrame(() => setTimeout(() => m.classList.add("go"), 250)); }
   }
+  // демо-ролик играет без звука, пока открыт его слайд; звук по нажатию
+  const demo = document.getElementById("demo"), snd = document.getElementById("snd");
+  function syncDemo() { if (cur === 9) { demo.play().catch(() => {}); } else { demo.pause(); } }
+  snd.addEventListener("click", (e) => { e.stopPropagation(); demo.muted = !demo.muted; if (!demo.muted) { demo.currentTime = 0; demo.play().catch(() => {}); }
+    snd.textContent = demo.muted ? "🔇 нажмите для звука" : "🔊 звук включён"; });
+  demo.addEventListener("click", (e) => { e.stopPropagation(); demo.paused ? demo.play() : demo.pause(); });
   const next = () => show(cur + 1), prev = () => show(cur - 1);
   document.getElementById("tNext").onclick = next; document.getElementById("tPrev").onclick = prev;
   document.getElementById("bNext").onclick = next; document.getElementById("bPrev").onclick = prev;
