@@ -188,7 +188,11 @@
   @media (min-width: 700px) { .stage { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); } }
   /* ПК: карточка становится широким слайдом, текст слева, визуал справа (обёртки .txt/.vis ставит скрипт) */
   .txt, .vis { display: contents; }
-  body.wide .stage { padding-block: 14px calc(64px + env(safe-area-inset-bottom, 0px)); }
+  body.wide .stage { padding-block: 14px; }
+  /* на ПК стрелки внутри карточки в шапке справа, ничего не перекрывают */
+  body.wide .nav { position: absolute; z-index: 25; top: 16px; right: 64px; bottom: auto; left: auto; transform: none; display: flex; }
+  body.wide .nav button { width: 34px; height: 34px; font-size: 15px; background: rgba(239, 223, 200, 0.14); }
+  body.wide .who small { margin-right: 92px; }
   body.wide .deck { width: min(1200px, 100%); height: min(740px, 100%); border-radius: 24px; }
   body.wide .slide { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 4vw, 56px); align-items: center; padding: clamp(64px, 12vh, 96px) clamp(28px, 4.5vw, 64px) clamp(18px, 4vh, 44px); }
   body.wide .txt { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
@@ -201,10 +205,12 @@
   body.wide .vis .reels3 { flex: none; height: min(320px, 32vh); max-height: none; }
   body.wide .vis .vs b { font-size: clamp(36px, 8vh, 64px); }
   body.wide .vis .board img { max-height: 46vh; }
-  body.wide .vis .grid9 { max-height: 46vh; width: auto; aspect-ratio: 3 / 3.75; }
+  body.wide .vis .grid9 { max-height: 38vh; width: auto; aspect-ratio: 3 / 3.75; }
+  body.wide .vis .sw div { aspect-ratio: 2; }
   body.wide .vis .chart svg { max-height: 40vh; }
   body.wide .vis .fcard { max-height: 52vh; }
   body.wide .soon, body.wide .vis .goals div { padding-block: 8px; }
+  body.wide .vis .goals b { font-size: clamp(16px, 3.6vh, 22px); }
   body.wide .vis .grid9 { width: min(100%, 300px); align-self: center; }
   body.wide .vis .sw div { aspect-ratio: 1.25; }
   body.wide .vis .seg { align-self: center; }
@@ -488,7 +494,9 @@
       }
     });
   }
-  layout(); wideMQ.addEventListener("change", layout);
+  const navEl = document.querySelector(".nav"), deckEl = document.getElementById("deck");
+  const placeNav = () => (wideMQ.matches ? deckEl.appendChild(navEl) : document.body.appendChild(navEl));
+  layout(); placeNav(); wideMQ.addEventListener("change", () => { layout(); placeNav(); });
   // ссылка на конкретную карточку: #s3 и т.п.
   const h = location.hash.match(/^#s(\d+)$/); show(h ? +h[1] - 1 : 0);
 </script>
