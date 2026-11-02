@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Padel Family × Your Agency">
 <meta property="og:description" content="Что работает в вашем Instagram и план на первый месяц">
-<meta property="og:image" content="img/cover.jpg">
+<meta property="og:image" content="https://osho4753.github.io/padel-family/img/cover.jpg">
 <title>Padel Family: разбор и план</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,12 +136,13 @@
   .arrows button { all: unset; cursor: pointer; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: rgba(239, 223, 200, 0.14); font-size: 16px; }
   .arrows button:focus-visible { outline: 2px solid var(--pf-ball); }
   /* фото-карточки на обложке, втором и последнем слайдах */
-  .polas { position: relative; height: 230px; }
-  .pola { position: absolute; width: 46%; aspect-ratio: 3 / 4; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 4px var(--milk), 0 18px 40px rgba(0, 0, 0, 0.35); }
+  /* блок с фото занимает свободное место и ужимается на низких экранах, а не наезжает на текст */
+  .polas { position: relative; flex: 1 1 0; min-height: 90px; max-height: 260px; }
+  .pola { position: absolute; height: 86%; aspect-ratio: 3 / 4; max-width: 48%; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 4px var(--milk), 0 18px 40px rgba(0, 0, 0, 0.35); }
   .pola img { width: 100%; height: 100%; object-fit: cover; }
   .pola small { position: absolute; left: 8px; bottom: 8px; font-family: var(--mono); font-size: 10.5px; font-weight: 600; background: var(--milk); color: var(--moss); padding: 3px 7px; border-radius: 6px; }
-  .reels3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .reels3 figure { margin: 0; position: relative; aspect-ratio: 9 / 14; border-radius: 12px; overflow: hidden; }
+  .reels3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; flex: 1 1 0; min-height: 80px; max-height: 250px; }
+  .reels3 figure { margin: 0; position: relative; height: 100%; border-radius: 12px; overflow: hidden; }
   .reels3 img { width: 100%; height: 100%; object-fit: cover; }
   .reels3 figcaption { position: absolute; left: 6px; bottom: 6px; font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--milk); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
   .reels3 figcaption::before { content: "▶ "; font-size: 9px; }
@@ -204,8 +205,8 @@
     <section class="slide on" data-i="0">
       <div class="photo"><img src="img/cover.jpg" alt=""></div>
       <div class="polas">
-        <div class="pola" style="left: 2%; top: 8px; transform: rotate(-6deg)"><img src="img/shoot.jpg" alt="Съёмка на падел-корте"></div>
-        <div class="pola" style="right: 2%; top: 30px; transform: rotate(5deg)"><img src="img/evening.jpg" alt="Игроки на корте вечером"></div>
+        <div class="pola" style="left: 2%; top: 4%; transform: rotate(-6deg)"><img src="img/shoot.jpg" alt="Съёмка на падел-корте"></div>
+        <div class="pola" style="right: 2%; top: 12%; transform: rotate(5deg)"><img src="img/evening.jpg" alt="Игроки на корте вечером"></div>
       </div>
       <div class="push"></div>
       <h1>Padel Family, мы посмотрели ваш <em>Instagram</em></h1>
@@ -337,8 +338,8 @@
     <!-- 11 · финал -->
     <section class="slide end" data-i="10">
       <div class="photo"><img src="img/team.jpg" alt=""></div>
-      <div class="polas" style="height: 200px">
-        <div class="pola" style="right: 4%; top: 6px; width: 42%; transform: rotate(5deg)"><img src="img/desk.jpg" alt="Раскадровка и телефон с рилсами на столе"><small>сценарий</small></div>
+      <div class="polas">
+        <div class="pola" style="right: 4%; top: 6%; transform: rotate(5deg)"><img src="img/desk.jpg" alt="Раскадровка и телефон с рилсами на столе"><small>сценарий</small></div>
       </div>
       <div class="push"></div>
       <div class="eyebrow">Что дальше</div>
