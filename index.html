@@ -184,7 +184,8 @@
   .nav { position: fixed; z-index: 30; bottom: max(14px, env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
   .nav button { all: unset; cursor: pointer; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--moss); color: var(--milk); font-size: 18px; }
   .nav button:focus-visible { outline: 2px solid var(--pf-ball); }
-  @media (min-height: 760px) and (min-width: 700px) { .nav { display: flex; } }
+  /* стрелки живут под карточкой, а не поверх неё: снизу у сцены место под них */
+  @media (min-width: 700px) { .stage { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); } }
   @media (max-width: 699px) { .nav { display: none; } .deck { height: 100%; border-radius: 22px; } }
   @media (prefers-reduced-motion: reduce) { .slide, .bars b, .meter i, .hint::after { transition: none; animation: none; } }
 </style>
