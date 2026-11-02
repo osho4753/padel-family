@@ -186,6 +186,9 @@
   .nav button:focus-visible { outline: 2px solid var(--pf-ball); }
   /* стрелки живут под карточкой, а не поверх неё: снизу у сцены место под них */
   @media (min-width: 700px) { .stage { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); } }
+  /* на больших мониторах сторис крупнее: тот же макет, увеличенный, чтобы не выглядел мелким телефоном посреди экрана */
+  @media (min-width: 1100px) and (min-height: 820px) { .deck { zoom: 1.2; width: 440px; height: min(880px, calc((100vh - 110px) / 1.2)); } }
+  @media (min-width: 1500px) and (min-height: 1000px) { .deck { zoom: 1.35; height: min(880px, calc((100vh - 120px) / 1.35)); } }
   @media (max-width: 699px) { .nav { display: none; } .deck { height: 100%; border-radius: 22px; } }
   @media (prefers-reduced-motion: reduce) { .slide, .bars b, .meter i, .hint::after { transition: none; animation: none; } }
 </style>
